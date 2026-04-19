@@ -1,4 +1,4 @@
-baseURL = "https://your-site.pages.dev"
+baseURL = "https://thesynthai.com"
 languageCode = "en-us"
 title = "SynthAI — Honest AI Tool Reviews"
 
@@ -10,7 +10,7 @@ enableEmoji = true
   description = "Cut through the AI noise. Honest reviews, real benchmarks, and practical guides on the AI tools that actually matter."
   author = "SynthAI"
   tagline = "Cut Through the AI Noise."
-  email = "hello@synthai.com"
+  email = "support@thesynthai.com"
   showReadingTime = true
   showShareButtons = true
   accentColor = "#c9f731"
@@ -36,9 +36,6 @@ enableEmoji = true
     url = "/categories/tutorials/"
     weight = 2
   [[menu.main]]
-    name = "Make Money"
-    url = "/categories/make-money/"
-    weight = 3
   [[menu.main]]
     name = "Newsletter"
     url = "/newsletter/"

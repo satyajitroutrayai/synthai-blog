@@ -101,6 +101,79 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// AI News Feed - fetches from RSS via rss2json
+document.addEventListener('DOMContentLoaded', function() {
+  var feed = document.getElementById('aiNewsFeed');
+  if (!feed) return;
+
+  var sources = [
+    { name: 'TechCrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
+    { name: 'The Verge', url: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml' },
+    { name: 'VentureBeat', url: 'https://venturebeat.com/category/ai/feed/' },
+  ];
+
+  var apiBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  var allItems = [];
+  var loaded = 0;
+
+  sources.forEach(function(source) {
+    fetch(apiBase + encodeURIComponent(source.url) + '&count=4')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.items) {
+          data.items.forEach(function(item) {
+            allItems.push({
+              title: item.title,
+              link: item.link,
+              source: source.name,
+              date: new Date(item.pubDate)
+            });
+          });
+        }
+      })
+      .catch(function() {})
+      .finally(function() {
+        loaded++;
+        if (loaded === sources.length) renderNews();
+      });
+  });
+
+  function renderNews() {
+    if (allItems.length === 0) {
+      feed.innerHTML = '<div class="news-loading">Unable to load news. Check back later.</div>';
+      return;
+    }
+    allItems.sort(function(a, b) { return b.date - a.date; });
+    var html = '';
+    allItems.slice(0, 10).forEach(function(item) {
+      var ago = timeAgo(item.date);
+      html += '<a href="' + item.link + '" target="_blank" rel="noopener" class="news-item">'
+        + '<span class="news-item-source">' + item.source + '</span>'
+        + '<span class="news-item-title">' + item.title + '</span>'
+        + '<span class="news-item-time">' + ago + '</span></a>';
+    });
+    feed.innerHTML = html;
+  }
+
+  function timeAgo(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+    if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+    if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+    return Math.floor(seconds / 86400) + 'd ago';
+  }
+});
+
+// Sidebar newsletter form
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('sidebarNewsletter');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      form.innerHTML = '<p style="color:var(--bg);font-size:14px;font-weight:600;text-align:center;">✓ You\'re in!</p>';
+    });
+  }
+});
+
 // Copy code blocks
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.article-content pre').forEach(function(pre) {
