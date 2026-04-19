@@ -1,9 +1,8 @@
 baseURL = "https://your-site.pages.dev"
 languageCode = "en-us"
 title = "SynthAI — Honest AI Tool Reviews"
-
-[pagination]
-  pagerSize = 10
+theme = ""
+paginate = 10
 enableRobotsTXT = true
 enableEmoji = true
 

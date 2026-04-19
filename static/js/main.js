@@ -1,12 +1,13 @@
-// SynthAI Blog — Main JS
+// SynthAI Blog — Enhanced JS v2
 
-// Mobile menu toggle
+// Mobile menu
 function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('active');
-  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('active');
+  document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
 }
 
-// Search overlay toggle
+// Search overlay
 function toggleSearch() {
   const overlay = document.getElementById('searchOverlay');
   overlay.classList.toggle('active');
@@ -18,7 +19,7 @@ function toggleSearch() {
   }
 }
 
-// Close search on ESC
+// ESC key handler
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.getElementById('searchOverlay').classList.remove('active');
@@ -27,44 +28,93 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Newsletter form handler (replace with your email service)
+// Scroll Reveal Animation
 document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('newsletterForm');
+  const reveals = document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+
+// Staggered card animation
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.post-card, .tool-card, .info-card, .testimonial-card');
+  cards.forEach(function(card, i) {
+    card.style.transitionDelay = (i % 3) * 0.08 + 's';
+  });
+});
+
+// Reading progress bar
+document.addEventListener('DOMContentLoaded', function() {
+  const content = document.querySelector('.article-content');
+  if (!content) return;
+
+  const bar = document.createElement('div');
+  bar.className = 'reading-progress';
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', function() {
+    var rect = content.getBoundingClientRect();
+    var total = content.offsetHeight - window.innerHeight;
+    var progress = Math.min(Math.max(-rect.top / total, 0), 1) * 100;
+    bar.style.width = progress + '%';
+  });
+});
+
+// Newsletter form
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('newsletterForm');
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const email = form.querySelector('input[type="email"]').value;
-      // TODO: Replace with ConvertKit/Mailchimp/Beehiiv API call
-      // Example for ConvertKit:
-      // fetch('https://api.convertkit.com/v3/forms/YOUR_FORM_ID/subscribe', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ api_key: 'YOUR_KEY', email: email })
-      // });
-      form.innerHTML = '<p style="color: var(--accent); font-size: 16px;">✓ You\'re in! Check your inbox.</p>';
+      // TODO: Replace with your email service API
+      form.innerHTML = '<p style="color: var(--accent); font-size: 16px; font-family: var(--font-serif);">✓ You\'re in! Check your inbox.</p>';
     });
   }
 });
 
 // Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Reading progress bar (for article pages)
-if (document.querySelector('.article-content')) {
-  const bar = document.createElement('div');
-  bar.style.cssText = 'position:fixed;top:64px;left:0;height:3px;background:var(--accent);z-index:99;transition:width 0.1s;width:0';
-  document.body.appendChild(bar);
-  window.addEventListener('scroll', function() {
-    const content = document.querySelector('.article-content');
-    const rect = content.getBoundingClientRect();
-    const total = content.offsetHeight - window.innerHeight;
-    const progress = Math.min(Math.max(-rect.top / total, 0), 1) * 100;
-    bar.style.width = progress + '%';
+// Active nav link highlight
+document.addEventListener('DOMContentLoaded', function() {
+  var path = window.location.pathname;
+  document.querySelectorAll('.nav-link').forEach(function(link) {
+    if (path.indexOf(link.getAttribute('href')) === 0 && link.getAttribute('href') !== '/') {
+      link.classList.add('active');
+    }
   });
-}
+});
+
+// Copy code blocks
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.article-content pre').forEach(function(pre) {
+    var btn = document.createElement('button');
+    btn.textContent = 'Copy';
+    btn.style.cssText = 'position:absolute;top:8px;right:8px;font-size:11px;padding:4px 10px;border-radius:6px;background:var(--border);color:var(--text-muted);border:none;cursor:pointer;font-family:var(--font-mono);transition:all 0.2s;';
+    btn.onmouseenter = function() { btn.style.background = 'var(--accent)'; btn.style.color = 'var(--bg)'; };
+    btn.onmouseleave = function() { btn.style.background = 'var(--border)'; btn.style.color = 'var(--text-muted)'; };
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.replace('Copy', '').trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+    };
+    pre.style.position = 'relative';
+    pre.appendChild(btn);
+  });
+});

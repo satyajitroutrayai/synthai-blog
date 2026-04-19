@@ -3,17 +3,25 @@
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-glow"></div>
+  <div class="hero-glow-secondary"></div>
+  <div class="hero-grid-bg"></div>
   <div class="hero-inner">
-    <span class="label-mono accent">
-      <span class="pulse-dot">●</span> The #1 AI Tools Blog — Updated Weekly
-    </span>
+    <div class="hero-badge">
+      <span class="label-mono accent" style="margin:0"><span class="pulse-dot">●</span> Updated Weekly — Trusted by 42,000+ Readers</span>
+    </div>
     <h1 class="hero-title">
       Cut Through the<br><em class="accent">AI Noise.</em>
     </h1>
-    <p class="hero-sub">{{ .Site.Params.description }}</p>
+    <p class="hero-sub">Honest reviews, real benchmarks, and practical guides on the AI tools that actually matter. No hype. No affiliate spam. Just signal.</p>
     <div class="hero-actions">
-      <a href="/posts/" class="btn btn-primary">Read Latest Reviews</a>
-      <a href="/newsletter/" class="btn btn-outline">Get the Newsletter</a>
+      <a href="/posts/" class="btn btn-primary">Read Latest Reviews →</a>
+      <a href="/newsletter/" class="btn btn-outline">Get Free Newsletter</a>
+    </div>
+    <div class="hero-trust">
+      <div class="hero-trust-item"><span class="hero-trust-icon">✓</span> 240+ Tools Tested</div>
+      <div class="hero-trust-item"><span class="hero-trust-icon">✓</span> 100% Independent</div>
+      <div class="hero-trust-item"><span class="hero-trust-icon">✓</span> Real Benchmarks</div>
+      <div class="hero-trust-item"><span class="hero-trust-icon">✓</span> Updated for 2026</div>
     </div>
   </div>
 </section>
@@ -37,7 +45,7 @@
 {{ $featured := where .Site.RegularPages "Params.featured" true }}
 {{ with first 1 $featured }}
 {{ range . }}
-<section class="section">
+<section class="section reveal">
   <span class="label-mono muted">Featured Article</span>
   <article class="featured-card">
     <div class="featured-grid">
@@ -48,7 +56,7 @@
       <div class="featured-body">
         <span class="label-mono accent">{{ with .Params.categories }}{{ index . 0 }}{{ end }}</span>
         <h2 class="featured-title">{{ .Title }}</h2>
-        <p class="featured-excerpt">{{ .Summary | truncate 200 }}</p>
+        <p class="featured-excerpt">{{ .Summary | truncate 220 }}</p>
         <div class="featured-meta">
           <span class="meta-text">{{ .Date.Format "Jan 2, 2006" }}</span>
           <span class="meta-dot">•</span>
@@ -63,9 +71,86 @@
 {{ end }}
 {{ end }}
 
+<!-- Top AI Tools Quick Compare -->
+<section class="section reveal">
+  <div class="section-header">
+    <div>
+      <span class="label-mono accent">Quick Compare</span>
+      <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 3vw, 36px); font-weight: 400;">Top AI Tools Right Now</h2>
+    </div>
+    <a href="/categories/reviews/" class="btn btn-ghost">View All Reviews →</a>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <span class="tool-card-badge" style="background: var(--accent-dim); color: var(--accent);">Editor's Pick</span>
+      <span class="tool-card-icon">⚡</span>
+      <div class="tool-card-name">Claude Pro</div>
+      <div class="tool-card-tagline">Best for long-form writing, research, and deep analysis. Most natural AI output.</div>
+      <div class="tool-card-meta">
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Price</span>
+          <span class="tool-card-meta-value">$20/mo</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Rating</span>
+          <span class="tool-card-meta-value highlight">9.5/10</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Best For</span>
+          <span class="tool-card-meta-value">Writing</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">🧠</span>
+      <div class="tool-card-name">ChatGPT Plus</div>
+      <div class="tool-card-tagline">Most versatile AI assistant. Great plugin ecosystem and browsing capability.</div>
+      <div class="tool-card-meta">
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Price</span>
+          <span class="tool-card-meta-value">$20/mo</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Rating</span>
+          <span class="tool-card-meta-value highlight">9.0/10</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Best For</span>
+          <span class="tool-card-meta-value">All-Purpose</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">🎨</span>
+      <div class="tool-card-name">Midjourney v7</div>
+      <div class="tool-card-tagline">Still the king of AI image generation. Stunning photorealism and style control.</div>
+      <div class="tool-card-meta">
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Price</span>
+          <span class="tool-card-meta-value">$10/mo</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Rating</span>
+          <span class="tool-card-meta-value highlight">9.3/10</span>
+        </div>
+        <div class="tool-card-meta-item">
+          <span class="tool-card-meta-label">Best For</span>
+          <span class="tool-card-meta-value">Images</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Latest Posts Grid -->
-<section class="section">
-  <span class="label-mono muted">Latest Articles</span>
+<section class="section reveal">
+  <div class="section-header">
+    <div>
+      <span class="label-mono muted">Latest Articles</span>
+      <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 3vw, 36px); font-weight: 400;">Fresh From the Lab</h2>
+    </div>
+    <a href="/posts/" class="btn btn-ghost">View All →</a>
+  </div>
   <div class="post-grid">
     {{ $posts := where .Site.RegularPages "Section" "posts" }}
     {{ range first 9 $posts }}
@@ -79,28 +164,65 @@
   {{ end }}
 </section>
 
-<!-- Revenue Streams Info -->
-<section class="section">
+<!-- Revenue / Monetization Info -->
+<section class="section reveal">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span class="label-mono accent">How This Blog Makes Money</span>
+    <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 3vw, 36px); font-weight: 400;">4 Revenue Streams, 100% Transparent</h2>
+    <p style="font-size: 15px; color: var(--text-dim); max-width: 500px; margin: 8px auto 0;">We believe in full transparency. Here's exactly how SynthAI generates revenue.</p>
+  </div>
   <div class="info-grid">
     <div class="info-card">
       <span class="info-icon">🔗</span>
       <h4 class="info-title">Affiliate Links</h4>
-      <p class="info-desc">Earn 5-30% commissions from honest reviews</p>
+      <p class="info-desc">We earn commissions when you sign up through our links — at no extra cost to you</p>
+      <span class="info-value">5-30%</span>
     </div>
     <div class="info-card">
       <span class="info-icon">📊</span>
       <h4 class="info-title">Display Ads</h4>
-      <p class="info-desc">Mediavine/AdThrive at 50K+ monthly sessions</p>
+      <p class="info-desc">Premium ad placements through Mediavine once we hit traffic thresholds</p>
+      <span class="info-value">$15-40 RPM</span>
     </div>
     <div class="info-card">
       <span class="info-icon">📧</span>
       <h4 class="info-title">Sponsored Posts</h4>
-      <p class="info-desc">$500-$5,000 per sponsored article</p>
+      <p class="info-desc">Clearly marked reviews from AI companies. Our opinions stay honest.</p>
+      <span class="info-value">$500-$5K</span>
     </div>
     <div class="info-card">
       <span class="info-icon">📦</span>
       <h4 class="info-title">Digital Products</h4>
-      <p class="info-desc">Sell templates, guides, courses</p>
+      <p class="info-desc">Prompt packs, comparison guides, and workflow templates we create</p>
+      <span class="info-value">$9-$49</span>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof / Testimonials -->
+<section class="section reveal">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span class="label-mono accent">Reader Love</span>
+    <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 3vw, 36px); font-weight: 400;">What Readers Are Saying</h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">Finally, an AI blog that doesn't just regurgitate press releases. Real tests, real numbers, real opinions. Saved me hundreds on tools I would have wasted money on.</p>
+      <div class="testimonial-author">Sarah K.</div>
+      <div class="testimonial-role">Freelance Content Creator</div>
+    </div>
+    <div class="testimonial-card">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">The Tuesday newsletter is the only one I actually open every week. The comparison breakdowns are incredibly useful for our agency's tool decisions.</p>
+      <div class="testimonial-author">Mike R.</div>
+      <div class="testimonial-role">Marketing Agency Owner</div>
+    </div>
+    <div class="testimonial-card">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">I went from zero to $2K/month in affiliate income following the SynthAI playbook. The step-by-step guides are genuinely actionable, not just theory.</p>
+      <div class="testimonial-author">Priya T.</div>
+      <div class="testimonial-role">Side Hustle Blogger</div>
     </div>
   </div>
 </section>

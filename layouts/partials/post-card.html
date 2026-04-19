@@ -1,4 +1,4 @@
-<article class="post-card">
+<article class="post-card reveal">
   <a href="{{ .Permalink }}" class="post-card-link">
     <div class="post-card-image" style="background: {{ with .Params.gradient }}{{ . }}{{ else }}linear-gradient(135deg, #302b63, #24243e){{ end }}">
       {{ with .Params.icon }}<span class="post-card-icon">{{ . }}</span>{{ end }}
@@ -10,11 +10,12 @@
             <span class="post-card-category">{{ . }}</span>
           {{ end }}
         {{ end }}
+        <span class="post-card-date">{{ .Date.Format "Jan 2, 2006" }}</span>
       </div>
       <h3 class="post-card-title">{{ .Title }}</h3>
-      <p class="post-card-excerpt">{{ .Summary | truncate 150 }}</p>
+      <p class="post-card-excerpt">{{ .Summary | truncate 140 }}</p>
       <div class="post-card-footer">
-	<div class="post-card-tags">
+        <div class="post-card-tags">
           {{ with .Params.tags }}{{ range first 2 . }}
             <span class="tag">{{ . }}</span>
           {{ end }}{{ end }}

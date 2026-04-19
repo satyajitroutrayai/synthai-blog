@@ -1,24 +1,24 @@
 {{ define "main" }}
 
-<article class="article">
+<article class="article" itemscope itemtype="https://schema.org/BlogPosting">
+
   <!-- Article Header -->
   <header class="article-header">
     <div class="article-header-inner">
       {{ with .Params.categories }}
         <span class="label-mono accent">{{ index . 0 }}</span>
       {{ end }}
-      <h1 class="article-title">{{ .Title }}</h1>
-      <p class="article-excerpt">{{ .Description }}</p>
+      <h1 class="article-title" itemprop="headline">{{ .Title }}</h1>
+      <p class="article-excerpt" itemprop="description">{{ .Description }}</p>
       <div class="article-meta">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}" itemprop="datePublished">{{ .Date.Format "January 2, 2006" }}</time>
         <span class="meta-dot">•</span>
         <span>{{ .ReadingTime }} min read</span>
-        {{ with .Params.author }}
-          <span class="meta-dot">•</span>
-          <span>By {{ . }}</span>
-        {{ end }}
+        <span class="meta-dot">•</span>
+        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+          By <span itemprop="name">{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
+        </span>
       </div>
-      <!-- Tags -->
       {{ with .Params.tags }}
       <div class="article-tags">
         {{ range . }}<a href="/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
@@ -37,21 +37,31 @@
   <!-- Affiliate Disclosure -->
   {{ if .Params.affiliate }}
   <div class="affiliate-disclosure">
-    <strong>Disclosure:</strong> This post contains affiliate links. I may earn a commission at no extra cost to you. I only recommend tools I personally use and trust.
+    <span class="affiliate-disclosure-icon">💡</span>
+    <div><strong>Disclosure:</strong> This post contains affiliate links. I may earn a commission at no extra cost to you. I only recommend tools I personally use and trust. <a href="/affiliate-disclosure/" style="color: var(--accent);">Learn more</a></div>
   </div>
   {{ end }}
 
   <!-- Table of Contents -->
   {{ if .Params.toc }}
-  <nav class="toc">
-    <h4 class="toc-title">Table of Contents</h4>
+  <nav class="toc" aria-label="Table of Contents">
+    <h4 class="toc-title">📑 Table of Contents</h4>
     {{ .TableOfContents }}
   </nav>
   {{ end }}
 
   <!-- Article Body -->
-  <div class="article-content">
+  <div class="article-content" itemprop="articleBody">
     {{ .Content }}
+  </div>
+
+  <!-- Share Buttons -->
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener" class="share-btn" title="Share on Twitter">𝕏</a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener" class="share-btn" title="Share on LinkedIn">in</a>
+    <a href="https://www.reddit.com/submit?url={{ .Permalink }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener" class="share-btn" title="Share on Reddit">R</a>
+    <a href="mailto:?subject={{ .Title | urlquery }}&body=Check%20this%20out:%20{{ .Permalink }}" class="share-btn" title="Share via Email">@</a>
   </div>
 
   <!-- Author Box -->
@@ -59,7 +69,7 @@
     <div class="author-avatar">SA</div>
     <div class="author-info">
       <h4 class="author-name">{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</h4>
-      <p class="author-bio">I test AI tools so you don't waste money on hype. Every review is based on real-world use, not press releases.</p>
+      <p class="author-bio">I test AI tools so you don't waste money on hype. Every review is based on real-world use, not press releases. <a href="/about/" style="color: var(--accent);">Learn more about me →</a></p>
     </div>
   </div>
 
@@ -75,6 +85,7 @@
     </div>
   </section>
   {{ end }}
+
 </article>
 
 {{ end }}
