@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<section class="section" style="padding-top: 80px;">
+  <div class="list-header">
+    <span class="label-mono accent">{{ .Kind | title }}</span>
+    <h1 class="list-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="list-desc">{{ . }}</p>{{ end }}
+    <p class="meta-text">{{ len .Pages }} {{ if eq (len .Pages) 1 }}article{{ else }}articles{{ end }}</p>
+  </div>
+
+  <div class="post-grid">
+    {{ range .Paginator.Pages }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+
+  <!-- Pagination -->
+  {{ $paginator := .Paginator }}
+  {{ if gt $paginator.TotalPages 1 }}
+  <nav class="pagination">
+    {{ if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" class="btn btn-outline">← Newer</a>
+    {{ end }}
+    <span class="pagination-info">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+    {{ if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" class="btn btn-outline">Older →</a>
+    {{ end }}
+  </nav>
+  {{ end }}
+</section>
+
+{{ end }}

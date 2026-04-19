@@ -1,0 +1,80 @@
+{{ define "main" }}
+
+<article class="article">
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="article-header-inner">
+      {{ with .Params.categories }}
+        <span class="label-mono accent">{{ index . 0 }}</span>
+      {{ end }}
+      <h1 class="article-title">{{ .Title }}</h1>
+      <p class="article-excerpt">{{ .Description }}</p>
+      <div class="article-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span class="meta-dot">•</span>
+        <span>{{ .ReadingTime }} min read</span>
+        {{ with .Params.author }}
+          <span class="meta-dot">•</span>
+          <span>By {{ . }}</span>
+        {{ end }}
+      </div>
+      <!-- Tags -->
+      {{ with .Params.tags }}
+      <div class="article-tags">
+        {{ range . }}<a href="/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </header>
+
+  <!-- Hero Image -->
+  {{ with .Params.gradient }}
+  <div class="article-hero" style="background: {{ . }}">
+    {{ with $.Params.icon }}<span class="article-hero-icon">{{ . }}</span>{{ end }}
+  </div>
+  {{ end }}
+
+  <!-- Affiliate Disclosure -->
+  {{ if .Params.affiliate }}
+  <div class="affiliate-disclosure">
+    <strong>Disclosure:</strong> This post contains affiliate links. I may earn a commission at no extra cost to you. I only recommend tools I personally use and trust.
+  </div>
+  {{ end }}
+
+  <!-- Table of Contents -->
+  {{ if .Params.toc }}
+  <nav class="toc">
+    <h4 class="toc-title">Table of Contents</h4>
+    {{ .TableOfContents }}
+  </nav>
+  {{ end }}
+
+  <!-- Article Body -->
+  <div class="article-content">
+    {{ .Content }}
+  </div>
+
+  <!-- Author Box -->
+  <div class="author-box">
+    <div class="author-avatar">SA</div>
+    <div class="author-info">
+      <h4 class="author-name">{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</h4>
+      <p class="author-bio">I test AI tools so you don't waste money on hype. Every review is based on real-world use, not press releases.</p>
+    </div>
+  </div>
+
+  <!-- Related Posts -->
+  {{ $related := .Site.RegularPages.Related . | first 3 }}
+  {{ with $related }}
+  <section class="related-posts">
+    <h3 class="related-heading">You might also like</h3>
+    <div class="post-grid">
+      {{ range . }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+</article>
+
+{{ end }}

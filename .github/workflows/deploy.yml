@@ -1,0 +1,51 @@
+# This workflow automatically publishes your blog daily.
+# Posts with future dates stay as drafts until their date arrives.
+# It runs every day at 9:00 AM Eastern Time (14:00 UTC).
+#
+# HOW TO SCHEDULE POSTS:
+# 1. Write your post as a .md file in content/posts/
+# 2. Set the 'date' field in frontmatter to the future date you want it published
+#    Example: date: 2026-05-01  (this post goes live May 1st)
+# 3. Push to GitHub — the workflow handles the rest!
+#
+# Hugo only builds pages whose date is <= current time,
+# so future-dated posts are automatically hidden until their day.
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Runs daily at 14:00 UTC (9:00 AM EST / 10:00 AM EDT)
+    - cron: '0 14 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public --project-name=synthai-blog

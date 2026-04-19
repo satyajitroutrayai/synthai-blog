@@ -1,0 +1,14 @@
+{{ if .Site.Params.newsletter.enabled }}
+<div class="newsletter-section">
+  <div class="newsletter-inner">
+    <span class="label-mono accent">Free Newsletter</span>
+    <h2 class="newsletter-heading">Get the <em class="accent">weekly signal</em></h2>
+    <p class="newsletter-sub">{{ .Site.Params.newsletter.subheading }}</p>
+    <form class="newsletter-form" action="#" method="POST" id="newsletterForm">
+      <input type="email" name="email" placeholder="{{ .Site.Params.newsletter.placeholder }}" required class="newsletter-input">
+      <button type="submit" class="btn btn-primary">Subscribe Free</button>
+    </form>
+    <p class="newsletter-fine">No spam. Unsubscribe anytime. We respect your inbox.</p>
+  </div>
+</div>
+{{ end }}

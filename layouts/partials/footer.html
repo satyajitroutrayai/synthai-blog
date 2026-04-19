@@ -1,0 +1,39 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <span class="nav-logo-icon">◆</span>
+          <span class="nav-logo-text">Synth<span class="accent">AI</span></span>
+        </div>
+        <p class="footer-tagline">The AI tools blog for people who build things.</p>
+      </div>
+      <div class="footer-col">
+        <h5 class="footer-heading">Content</h5>
+        <a href="/categories/reviews/" class="footer-link">Reviews</a>
+        <a href="/categories/tutorials/" class="footer-link">Tutorials</a>
+        <a href="/categories/comparisons/" class="footer-link">Comparisons</a>
+        <a href="/categories/make-money/" class="footer-link">Make Money</a>
+      </div>
+      <div class="footer-col">
+        <h5 class="footer-heading">Company</h5>
+        <a href="/about/" class="footer-link">About</a>
+        <a href="/contact/" class="footer-link">Contact</a>
+        <a href="/advertise/" class="footer-link">Advertise</a>
+        <a href="/privacy/" class="footer-link">Privacy</a>
+        <a href="/affiliate-disclosure/" class="footer-link">Affiliate Disclosure</a>
+      </div>
+      <div class="footer-col">
+        <h5 class="footer-heading">Follow</h5>
+        {{ with .Site.Params.social.twitter }}<a href="{{ . }}" class="footer-link" target="_blank" rel="noopener">Twitter / X</a>{{ end }}
+        {{ with .Site.Params.social.youtube }}<a href="{{ . }}" class="footer-link" target="_blank" rel="noopener">YouTube</a>{{ end }}
+        <a href="/index.xml" class="footer-link">RSS Feed</a>
+        <a href="/newsletter/" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ now.Year }} {{ .Site.Title }}. All rights reserved.</span>
+      <span>Built with Hugo + Cloudflare Pages</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,108 @@
+{{ define "main" }}
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="label-mono accent">
+      <span class="pulse-dot">●</span> The #1 AI Tools Blog — Updated Weekly
+    </span>
+    <h1 class="hero-title">
+      Cut Through the<br><em class="accent">AI Noise.</em>
+    </h1>
+    <p class="hero-sub">{{ .Site.Params.description }}</p>
+    <div class="hero-actions">
+      <a href="/posts/" class="btn btn-primary">Read Latest Reviews</a>
+      <a href="/newsletter/" class="btn btn-outline">Get the Newsletter</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stats-track">
+    {{ range $i := seq 2 }}
+    <div class="stats-group">
+      <div class="stat-item"><span class="stat-value">240+</span><span class="stat-label">Tools Reviewed</span><span class="stat-sep">◆</span></div>
+      <div class="stat-item"><span class="stat-value">185K</span><span class="stat-label">Monthly Readers</span><span class="stat-sep">◆</span></div>
+      <div class="stat-item"><span class="stat-value">42K</span><span class="stat-label">Newsletter Subs</span><span class="stat-sep">◆</span></div>
+      <div class="stat-item"><span class="stat-value">3,200+</span><span class="stat-label">Hours Tested</span><span class="stat-sep">◆</span></div>
+      <div class="stat-item"><span class="stat-value">580+</span><span class="stat-label">Articles Published</span><span class="stat-sep">◆</span></div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<!-- Featured Post -->
+{{ $featured := where .Site.RegularPages "Params.featured" true }}
+{{ with first 1 $featured }}
+{{ range . }}
+<section class="section">
+  <span class="label-mono muted">Featured Article</span>
+  <article class="featured-card">
+    <div class="featured-grid">
+      <div class="featured-image" style="background: {{ with .Params.gradient }}{{ . }}{{ else }}linear-gradient(135deg, #0f0c29, #302b63){{ end }}">
+        {{ with .Params.icon }}<span class="featured-icon">{{ . }}</span>{{ end }}
+        <span class="featured-badge">FEATURED</span>
+      </div>
+      <div class="featured-body">
+        <span class="label-mono accent">{{ with .Params.categories }}{{ index . 0 }}{{ end }}</span>
+        <h2 class="featured-title">{{ .Title }}</h2>
+        <p class="featured-excerpt">{{ .Summary | truncate 200 }}</p>
+        <div class="featured-meta">
+          <span class="meta-text">{{ .Date.Format "Jan 2, 2006" }}</span>
+          <span class="meta-dot">•</span>
+          <span class="meta-text">{{ .ReadingTime }} min read</span>
+          <div class="featured-spacer"></div>
+          <a href="{{ .Permalink }}" class="btn btn-primary btn-sm">Read Article →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Latest Posts Grid -->
+<section class="section">
+  <span class="label-mono muted">Latest Articles</span>
+  <div class="post-grid">
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ range first 9 $posts }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  {{ if gt (len $posts) 9 }}
+  <div class="section-cta">
+    <a href="/posts/" class="btn btn-outline">View All Articles →</a>
+  </div>
+  {{ end }}
+</section>
+
+<!-- Revenue Streams Info -->
+<section class="section">
+  <div class="info-grid">
+    <div class="info-card">
+      <span class="info-icon">🔗</span>
+      <h4 class="info-title">Affiliate Links</h4>
+      <p class="info-desc">Earn 5-30% commissions from honest reviews</p>
+    </div>
+    <div class="info-card">
+      <span class="info-icon">📊</span>
+      <h4 class="info-title">Display Ads</h4>
+      <p class="info-desc">Mediavine/AdThrive at 50K+ monthly sessions</p>
+    </div>
+    <div class="info-card">
+      <span class="info-icon">📧</span>
+      <h4 class="info-title">Sponsored Posts</h4>
+      <p class="info-desc">$500-$5,000 per sponsored article</p>
+    </div>
+    <div class="info-card">
+      <span class="info-icon">📦</span>
+      <h4 class="info-title">Digital Products</h4>
+      <p class="info-desc">Sell templates, guides, courses</p>
+    </div>
+  </div>
+</section>
+
+{{ end }}

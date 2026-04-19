@@ -1,0 +1,70 @@
+baseURL = "https://your-site.pages.dev"
+languageCode = "en-us"
+title = "SynthAI — Honest AI Tool Reviews"
+
+paginate = 10
+enableRobotsTXT = true
+enableEmoji = true
+
+[params]
+  description = "Cut through the AI noise. Honest reviews, real benchmarks, and practical guides on the AI tools that actually matter."
+  author = "SynthAI"
+  tagline = "Cut Through the AI Noise."
+  email = "hello@synthai.com"
+  showReadingTime = true
+  showShareButtons = true
+  accentColor = "#c9f731"
+
+[params.newsletter]
+  enabled = true
+  heading = "Get the weekly signal"
+  subheading = "Every Tuesday: one tool review, one tutorial, and one money-making strategy."
+  placeholder = "your@email.com"
+
+[params.social]
+  twitter = "https://twitter.com/yourhandle"
+  youtube = "https://youtube.com/@yourhandle"
+  github = "https://github.com/yourhandle"
+
+[menu]
+  [[menu.main]]
+    name = "Reviews"
+    url = "/categories/reviews/"
+    weight = 1
+  [[menu.main]]
+    name = "Tutorials"
+    url = "/categories/tutorials/"
+    weight = 2
+  [[menu.main]]
+    name = "Make Money"
+    url = "/categories/make-money/"
+    weight = 3
+  [[menu.main]]
+    name = "Newsletter"
+    url = "/newsletter/"
+    weight = 4
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.highlight]
+    style = "dracula"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
+[privacy]
+  [privacy.googleAnalytics]
+    disable = false
+    respectDoNotTrack = true
+  [privacy.youtube]
+    privacyEnhanced = true
