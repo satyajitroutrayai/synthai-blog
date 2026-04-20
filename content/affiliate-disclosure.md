@@ -22,4 +22,4 @@ We are affiliates of various AI tool companies, SaaS products, and technology se
 
 ## Questions?
 
-If you have any questions about our affiliate relationships, please contact us at hello@synthai.com.
+If you have any questions about our affiliate relationships, please contact us at support@thesynthai.com.

@@ -28,4 +28,4 @@ We **never** let monetization influence our rankings or recommendations.
 
 Have a question? Want us to review a specific tool? Interested in advertising?
 
-Email us at: **hello@synthai.com**
+Email us at: **support@thesynthai.com**

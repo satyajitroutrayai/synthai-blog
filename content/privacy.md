@@ -29,8 +29,8 @@ We use the following third-party services that may collect data:
 
 ## Your Rights
 
-You can unsubscribe from our newsletter at any time using the link in any email. For data deletion requests, contact us at hello@synthai.com.
+You can unsubscribe from our newsletter at any time using the link in any email. For data deletion requests, contact us at support@thesynthai.com.
 
 ## Contact
 
-Questions about this policy? Email: hello@synthai.com
+Questions about this policy? Email: support@thesynthai.com
