@@ -1,0 +1,115 @@
+<!-- Sidebar -->
+<aside class="sidebar">
+
+  <!-- Live AI News Feed -->
+  <div class="sidebar-widget">
+    <div class="sidebar-widget-header">
+      <span class="pulse-dot accent">●</span>
+      <h3 class="sidebar-widget-title">AI News Live</h3>
+    </div>
+    <div id="aiNewsFeed" class="news-feed">
+      <div class="news-loading">Loading latest AI news...</div>
+    </div>
+    <div class="news-sources">
+      Sources: TechCrunch, The Verge, Ars Technica, VentureBeat
+    </div>
+  </div>
+
+  <!-- Trending AI Tools -->
+  <div class="sidebar-widget">
+    <h3 class="sidebar-widget-title">🔥 Trending Tools This Week</h3>
+    <div class="trending-list">
+      <a href="/posts/claude-vs-chatgpt-vs-gemini-2026/" class="trending-item">
+        <span class="trending-rank">01</span>
+        <div class="trending-info">
+          <span class="trending-name">Claude Pro</span>
+          <span class="trending-meta">Best AI Writing — $20/mo</span>
+        </div>
+        <span class="trending-badge up">↑</span>
+      </a>
+      <a href="/posts/best-ai-writing-tools-2026/" class="trending-item">
+        <span class="trending-rank">02</span>
+        <div class="trending-info">
+          <span class="trending-name">Midjourney v7</span>
+          <span class="trending-meta">Best AI Images — $10/mo</span>
+        </div>
+        <span class="trending-badge up">↑</span>
+      </a>
+      <a href="/posts/sora-vs-runway-vs-kling-2026/" class="trending-item">
+        <span class="trending-rank">03</span>
+        <div class="trending-info">
+          <span class="trending-name">Sora</span>
+          <span class="trending-meta">Best AI Video — $20/mo</span>
+        </div>
+        <span class="trending-badge new">NEW</span>
+      </a>
+      <a href="/posts/claude-code-vs-cursor-vs-copilot-2026/" class="trending-item">
+        <span class="trending-rank">04</span>
+        <div class="trending-info">
+          <span class="trending-name">Cursor</span>
+          <span class="trending-meta">Best AI Coding — $20/mo</span>
+        </div>
+        <span class="trending-badge steady">—</span>
+      </a>
+      <a href="/posts/best-free-ai-tools-2026/" class="trending-item">
+        <span class="trending-rank">05</span>
+        <div class="trending-info">
+          <span class="trending-name">Perplexity AI</span>
+          <span class="trending-meta">Best AI Search — Free</span>
+        </div>
+        <span class="trending-badge up">↑</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Quick Compare Widget -->
+  <div class="sidebar-widget sidebar-widget-dark">
+    <h3 class="sidebar-widget-title">⚡ Quick Compare</h3>
+    <p class="sidebar-widget-desc">Which AI tool should you pick?</p>
+    <div class="quick-compare-links">
+      <a href="/posts/claude-vs-chatgpt-vs-gemini-2026/" class="quick-compare-link">Claude vs ChatGPT vs Gemini →</a>
+      <a href="/posts/sora-vs-runway-vs-kling-2026/" class="quick-compare-link">Sora vs Runway vs Kling →</a>
+      <a href="/posts/claude-code-vs-cursor-vs-copilot-2026/" class="quick-compare-link">Claude Code vs Cursor vs Copilot →</a>
+      <a href="/posts/best-ai-writing-tools-2026/" class="quick-compare-link">Best AI Writing Tools Ranked →</a>
+    </div>
+  </div>
+
+  <!-- Sidebar Newsletter -->
+  <div class="sidebar-widget sidebar-widget-accent">
+    <h3 class="sidebar-widget-title" style="color: var(--bg);">📧 The Weekly Signal</h3>
+    <p class="sidebar-widget-desc" style="color: rgba(8,9,13,0.7);">Every Tuesday: 1 review, 1 tutorial, 1 strategy. Free.</p>
+    <form class="sidebar-newsletter" id="sidebarNewsletter">
+      <input type="email" placeholder="your@email.com" required class="sidebar-newsletter-input">
+      <button type="submit" class="sidebar-newsletter-btn">Subscribe</button>
+    </form>
+    <span class="sidebar-newsletter-count" style="color: rgba(8,9,13,0.5);">Join 42,000+ readers</span>
+  </div>
+
+  <!-- Popular Posts -->
+  <div class="sidebar-widget">
+    <h3 class="sidebar-widget-title">📈 Most Popular</h3>
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ range first 4 $posts }}
+    <a href="{{ .Permalink }}" class="popular-post">
+      <div class="popular-post-icon" style="background: {{ with .Params.gradient }}{{ . }}{{ else }}linear-gradient(135deg, #302b63, #24243e){{ end }}">
+        {{ with .Params.icon }}{{ . }}{{ end }}
+      </div>
+      <div class="popular-post-info">
+        <span class="popular-post-title">{{ .Title | truncate 55 }}</span>
+        <span class="popular-post-meta">{{ .ReadingTime }} min read</span>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  <!-- Tags Cloud -->
+  <div class="sidebar-widget">
+    <h3 class="sidebar-widget-title">🏷️ Topics</h3>
+    <div class="tags-cloud">
+      {{ range .Site.Taxonomies.tags }}
+        <a href="{{ .Page.Permalink }}" class="tag">{{ .Page.Title }} <span class="tag-count">{{ .Count }}</span></a>
+      {{ end }}
+    </div>
+  </div>
+
+</aside>
